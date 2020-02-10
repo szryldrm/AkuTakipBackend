@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using AkuTakip.Business.Abstract;
 using AkuTakip.Business.BusinessAspects.Autofac;
 using AkuTakip.Business.Constants;
 using AkuTakip.Business.ValidationRules.FluentValidation;
 using AkuTakip.Core.Aspects.Autofac.Caching;
+using AkuTakip.Core.Aspects.Autofac.Performance;
 using AkuTakip.Core.Aspects.Autofac.Validation;
 using AkuTakip.Core.CrossCuttingConcerns.Validation;
 using AkuTakip.Core.Utilities.Results;
@@ -31,7 +33,8 @@ namespace AkuTakip.Business.Concrete
         }
 
         [SecuredOperation("GarantiDetay.List, Admin", Priority = 1)]
-        [CacheAspect(duration:1, Priority = 2)]
+        [CacheAspect(duration: 1, Priority = 2)]
+        [PerformanceAspect(5)]
         public IDataResult<List<Plaka>> GetList()
         {
             return new SuccessDataResult<List<Plaka>>(_plakaDal.GetList().ToList());

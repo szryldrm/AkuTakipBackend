@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using AkuTakip.Core.CrossCuttingConcerns.Caching;
 using AkuTakip.Core.CrossCuttingConcerns.Caching.Microsoft;
@@ -16,6 +17,7 @@ namespace AkuTakip.Core.DependencyResolvers
             services.AddMemoryCache();
             services.AddSingleton<ICacheManager, MemoryCacheManager>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<Stopwatch>();
         }
     }
 }
