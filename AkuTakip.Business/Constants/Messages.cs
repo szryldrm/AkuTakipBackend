@@ -41,5 +41,9 @@ namespace AkuTakip.Business.Constants
         public static string AccessTokenCreated = "Access Token Başarıyla Oluşturuldu.";
 
         public static string NonStartWithZero = "Seri Numarası Sıfır İle Başlayamaz!";
+
+        public static string NotEmptyAkuTipi = "Akü Tipi Alanı Boş Olamaz.";
+        public static string NotEmptyAmper = "Amper Alanı Boş Olamaz.";
+        public static string NotEmptyMarka = "Marka Alanı Boş Olamaz.";
     }
 }

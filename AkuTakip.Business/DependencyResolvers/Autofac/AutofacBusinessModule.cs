@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.Text;
 using AkuTakip.Business.Abstract;
 using AkuTakip.Business.Concrete;
+using AkuTakip.Core.Utilities.Interceptors;
 using AkuTakip.Core.Utilities.Security.Jwt;
 using AkuTakip.DataAccess.Abstract;
 using AkuTakip.DataAccess.Concrete.EntityFramework;
+using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
 
 namespace AkuTakip.Business.DependencyResolvers.Autofac
 {
@@ -38,6 +41,14 @@ namespace AkuTakip.Business.DependencyResolvers.Autofac
             builder.RegisterType<AuthManager>().As<IAuthService>();
 
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors(new ProxyGenerationOptions()
+                {
+                    Selector = new AspectInterceptorSelector()
+                }).SingleInstance();
         }
     }
 }

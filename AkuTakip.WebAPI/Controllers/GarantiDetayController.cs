@@ -57,7 +57,7 @@ namespace AkuTakip.WebAPI.Controllers
         }
 
         [HttpGet("getbyplaka")]
-        [Authorize(Roles = "Garanti.Get")]
+        //[Authorize(Roles = "Garanti.Get")]
         public IActionResult GetByPlaka(string plaka)
         {
             var result = _garantiDetayService.GetByPlaka(plaka);

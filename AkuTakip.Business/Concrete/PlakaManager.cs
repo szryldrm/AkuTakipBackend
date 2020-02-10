@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using AkuTakip.Business.Abstract;
 using AkuTakip.Business.Constants;
 using AkuTakip.Business.ValidationRules.FluentValidation;
+using AkuTakip.Core.Aspects.Autofac.Validation;
 using AkuTakip.Core.CrossCuttingConcerns.Validation;
 using AkuTakip.Core.Utilities.Results;
 using AkuTakip.DataAccess.Abstract;
@@ -32,9 +33,9 @@ namespace AkuTakip.Business.Concrete
             return new SuccessDataResult<List<Plaka>>(_plakaDal.GetList().ToList());
         }
 
+        [ValidationAspect(typeof(PlakaValidator))]
         public IResult Add(Plaka plaka)
         {
-            ValidationTool.Validate(new PlakaValidator(), plaka);
             _plakaDal.Add(plaka);
             return new SuccessResult(Messages.PlakaAdded);
         }

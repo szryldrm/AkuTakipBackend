@@ -12,19 +12,18 @@ namespace AkuTakip.Business.ValidationRules.FluentValidation
     {
         public GarantiDetayValidator()
         {
-            RuleFor(g => g.SeriNo).NotEmpty();
-            RuleFor(g => g.SeriNo).MinimumLength(3);
-            RuleFor(g => g.SeriNo).Must(NonStartWithZero).WithMessage(Messages.NonStartWithZero);
+            RuleFor(gd => gd.SeriNo).NotEmpty();
+            RuleFor(gd => gd.SeriNo).MinimumLength(3);
+            RuleFor(gd => gd.SeriNo).Must(NonStartWithZero).WithMessage(Messages.NonStartWithZero);
+            RuleFor(gd => gd.AkuTipiID).NotEmpty().WithMessage(Messages.NotEmptyAkuTipi);
+            RuleFor(gd => gd.AmperID).NotEmpty().WithMessage(Messages.NotEmptyAmper);
+            RuleFor(gd => gd.MarkaID).NotEmpty().WithMessage(Messages.NotEmptyMarka);
+
         }
 
         private bool NonStartWithZero(string arg)
         {
-            if (!arg.StartsWith("0"))
-            {
-                return true;
-            }
-
-            return false;
+            return !arg.StartsWith("0");
         }
     }
 }

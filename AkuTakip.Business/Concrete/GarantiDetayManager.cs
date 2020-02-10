@@ -5,6 +5,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using AkuTakip.Business.Abstract;
 using AkuTakip.Business.Constants;
+using AkuTakip.Business.ValidationRules.FluentValidation;
+using AkuTakip.Core.Aspects.Autofac.Validation;
 using AkuTakip.Core.Utilities.Results;
 using AkuTakip.DataAccess.Abstract;
 using AkuTakip.Entities.Concrete;
@@ -60,6 +62,7 @@ namespace AkuTakip.Business.Concrete
             return new SuccessDataResult<List<GarantiDetay>>(_garantiDetayDal.GetList().ToList());
         }
 
+        [ValidationAspect(typeof(GarantiDetayValidator))]
         public IResult Add(GarantiDetay garantiDetay)
         {
             _garantiDetayDal.Add(garantiDetay);
