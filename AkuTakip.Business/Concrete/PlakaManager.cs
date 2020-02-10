@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using AkuTakip.Business.Abstract;
+using AkuTakip.Business.BusinessAspects.Autofac;
 using AkuTakip.Business.Constants;
 using AkuTakip.Business.ValidationRules.FluentValidation;
 using AkuTakip.Core.Aspects.Autofac.Caching;
@@ -29,7 +30,8 @@ namespace AkuTakip.Business.Concrete
             return new SuccessDataResult<Plaka>(_plakaDal.Get(p => p.PlakaID == plakaId));
         }
 
-        [CacheAspect(duration:1)]
+        [SecuredOperation("GarantiDetay.List, Admin", Priority = 1)]
+        [CacheAspect(duration:1, Priority = 2)]
         public IDataResult<List<Plaka>> GetList()
         {
             return new SuccessDataResult<List<Plaka>>(_plakaDal.GetList().ToList());

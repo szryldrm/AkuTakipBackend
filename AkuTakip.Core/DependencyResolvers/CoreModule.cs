@@ -4,6 +4,7 @@ using System.Text;
 using AkuTakip.Core.CrossCuttingConcerns.Caching;
 using AkuTakip.Core.CrossCuttingConcerns.Caching.Microsoft;
 using AkuTakip.Core.Utilities.IoC;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AkuTakip.Core.DependencyResolvers
@@ -14,6 +15,7 @@ namespace AkuTakip.Core.DependencyResolvers
         {
             services.AddMemoryCache();
             services.AddSingleton<ICacheManager, MemoryCacheManager>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
     }
 }

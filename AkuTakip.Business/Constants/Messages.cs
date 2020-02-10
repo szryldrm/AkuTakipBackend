@@ -2,6 +2,7 @@
 using AkuTakip.Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace AkuTakip.Business.Constants
@@ -47,5 +48,6 @@ namespace AkuTakip.Business.Constants
         public static string NotEmptyMarka = "Marka Alanı Boş Olamaz.";
 
         public static string NoResultsFound = "Sonuç Bulunamadı..!";
+        public static string AuthorizationDenied = "Yetkiniz Yok.";
     }
 }
