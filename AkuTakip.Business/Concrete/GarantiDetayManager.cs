@@ -40,7 +40,7 @@ namespace AkuTakip.Business.Concrete
                 return new SuccessDataResult<List<GarantiDetay>>(_garantiDetayDal.GetList(d => d.PlakaID == tempPlaka.PlakaID).ToList());
             }
 
-            return new ErrorDataResult<List<GarantiDetay>>("Sonuç Bulunamadı.!");
+            return new ErrorDataResult<List<GarantiDetay>>(Messages.NoResultsFound);
         }
 
         public IDataResult<List<GarantiDetay>> GetByPlakaWithDate(string plaka, string date1, string date2)
@@ -55,7 +55,7 @@ namespace AkuTakip.Business.Concrete
                 return new SuccessDataResult<List<GarantiDetay>>(_garantiDetayDal.GetList(d => d.PlakaID == tempPlaka.PlakaID && d.CreatedDate >= start && d.CreatedDate <= end).ToList());
             }
 
-            return new ErrorDataResult<List<GarantiDetay>>("Sonuç Bulunamadı.!");
+            return new ErrorDataResult<List<GarantiDetay>>(Messages.NoResultsFound);
         }
 
         public IDataResult<List<GarantiDetay>> GetList()

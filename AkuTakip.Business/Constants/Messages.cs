@@ -45,5 +45,7 @@ namespace AkuTakip.Business.Constants
         public static string NotEmptyAkuTipi = "Akü Tipi Alanı Boş Olamaz.";
         public static string NotEmptyAmper = "Amper Alanı Boş Olamaz.";
         public static string NotEmptyMarka = "Marka Alanı Boş Olamaz.";
+
+        internal static string NoResultsFound = "Sonuç Bulunamadı..!";
     }
 }
