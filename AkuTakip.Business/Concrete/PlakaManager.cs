@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using AkuTakip.Business.Abstract;
 using AkuTakip.Business.Constants;
 using AkuTakip.Business.ValidationRules.FluentValidation;
+using AkuTakip.Core.Aspects.Autofac.Caching;
 using AkuTakip.Core.Aspects.Autofac.Validation;
 using AkuTakip.Core.CrossCuttingConcerns.Validation;
 using AkuTakip.Core.Utilities.Results;
@@ -28,6 +29,7 @@ namespace AkuTakip.Business.Concrete
             return new SuccessDataResult<Plaka>(_plakaDal.Get(p => p.PlakaID == plakaId));
         }
 
+        [CacheAspect(duration:1)]
         public IDataResult<List<Plaka>> GetList()
         {
             return new SuccessDataResult<List<Plaka>>(_plakaDal.GetList().ToList());

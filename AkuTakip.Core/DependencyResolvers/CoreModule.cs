@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using AkuTakip.Core.CrossCuttingConcerns.Caching;
+using AkuTakip.Core.CrossCuttingConcerns.Caching.Microsoft;
 using AkuTakip.Core.Utilities.IoC;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +13,7 @@ namespace AkuTakip.Core.DependencyResolvers
         public void Load(IServiceCollection services)
         {
             services.AddMemoryCache();
+            services.AddSingleton<ICacheManager, MemoryCacheManager>();
         }
     }
 }
