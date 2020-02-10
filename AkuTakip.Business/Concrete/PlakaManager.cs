@@ -5,6 +5,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using AkuTakip.Business.Abstract;
 using AkuTakip.Business.Constants;
+using AkuTakip.Business.ValidationRules.FluentValidation;
+using AkuTakip.Core.CrossCuttingConcerns.Validation;
 using AkuTakip.Core.Utilities.Results;
 using AkuTakip.DataAccess.Abstract;
 using AkuTakip.Entities.Concrete;
@@ -32,6 +34,7 @@ namespace AkuTakip.Business.Concrete
 
         public IResult Add(Plaka plaka)
         {
+            ValidationTool.Validate(new PlakaValidator(), plaka);
             _plakaDal.Add(plaka);
             return new SuccessResult(Messages.PlakaAdded);
         }

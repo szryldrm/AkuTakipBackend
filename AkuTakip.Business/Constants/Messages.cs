@@ -1,4 +1,5 @@
 ﻿using AkuTakip.Core.Utilities.Concrete;
+using AkuTakip.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,7 @@ namespace AkuTakip.Business.Constants
 
         public static string MarkaAdded = "Marka Başarıyla Eklendi.";
         public static string MarkaDeleted = "Marka Başarıyla Silindi.";
+
         public static string MarkaUpdated = "Marka Başarıyla Güncellendi.";
 
         public static string AmperAdded = "Amper Başarıyla Eklendi.";
@@ -37,5 +39,7 @@ namespace AkuTakip.Business.Constants
         public static string UserAlreadyExists = "Kullanıcı Mevcut.";
         public static string UserRegistered = "Kullanıcı Başarıyla Kaydedildi.";
         public static string AccessTokenCreated = "Access Token Başarıyla Oluşturuldu.";
+
+        public static string NonStartWithZero = "Seri Numarası Sıfır İle Başlayamaz!";
     }
 }
