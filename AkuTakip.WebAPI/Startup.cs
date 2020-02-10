@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AkuTakip.Core.DependencyResolvers;
+using AkuTakip.Core.Extensions;
+using AkuTakip.Core.Utilities.IoC;
 using AkuTakip.Core.Utilities.Security.Encryption;
 using AkuTakip.Core.Utilities.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -50,6 +53,11 @@ namespace AkuTakip.WebAPI
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                 };
+            });
+
+            services.AddDependencyResolvers(new ICoreModule[]
+            {
+                new CoreModule(),
             });
         }
 
