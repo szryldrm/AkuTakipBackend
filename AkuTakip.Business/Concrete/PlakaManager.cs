@@ -9,8 +9,10 @@ using AkuTakip.Business.BusinessAspects.Autofac;
 using AkuTakip.Business.Constants;
 using AkuTakip.Business.ValidationRules.FluentValidation;
 using AkuTakip.Core.Aspects.Autofac.Caching;
+using AkuTakip.Core.Aspects.Autofac.Logging;
 using AkuTakip.Core.Aspects.Autofac.Performance;
 using AkuTakip.Core.Aspects.Autofac.Validation;
+using AkuTakip.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using AkuTakip.Core.CrossCuttingConcerns.Validation;
 using AkuTakip.Core.Utilities.Results;
 using AkuTakip.DataAccess.Abstract;
@@ -32,9 +34,10 @@ namespace AkuTakip.Business.Concrete
             return new SuccessDataResult<Plaka>(_plakaDal.Get(p => p.PlakaID == plakaId));
         }
 
-        [SecuredOperation("GarantiDetay.List, Admin", Priority = 1)]
+        //[SecuredOperation("GarantiDetay.List, Admin", Priority = 1)]
         [CacheAspect(duration: 1, Priority = 2)]
         [PerformanceAspect(5)]
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<List<Plaka>> GetList()
         {
             return new SuccessDataResult<List<Plaka>>(_plakaDal.GetList().ToList());

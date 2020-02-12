@@ -6,11 +6,13 @@ using System.Text.RegularExpressions;
 using AkuTakip.Business.Abstract;
 using AkuTakip.Business.Constants;
 using AkuTakip.Business.ValidationRules.FluentValidation;
+using AkuTakip.Core.Aspects.Autofac.Logging;
 using AkuTakip.Core.Aspects.Autofac.Transaction;
 using AkuTakip.Core.Aspects.Autofac.Validation;
 using AkuTakip.Core.Utilities.Results;
 using AkuTakip.DataAccess.Abstract;
 using AkuTakip.Entities.Concrete;
+using AkuTakip.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 
 
 namespace AkuTakip.Business.Concrete
@@ -31,6 +33,7 @@ namespace AkuTakip.Business.Concrete
             return new SuccessDataResult<GarantiDetay>(_garantiDetayDal.Get(p => p.GarantiDetayID == garantiDetayId));
         }
 
+        [LogAspect(typeof(DatabaseLogger))]
         public IDataResult<List<GarantiDetay>> GetByPlaka(string plaka)
         {
             var tempPlaka = _plakaDal.Get(p=>p.PlakaNo == plaka);
