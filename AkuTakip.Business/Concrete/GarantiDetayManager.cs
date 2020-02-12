@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using AkuTakip.Business.Abstract;
 using AkuTakip.Business.Constants;
 using AkuTakip.Business.ValidationRules.FluentValidation;
+using AkuTakip.Core.Aspects.Autofac.Caching;
 using AkuTakip.Core.Aspects.Autofac.Logging;
 using AkuTakip.Core.Aspects.Autofac.Transaction;
 using AkuTakip.Core.Aspects.Autofac.Validation;
@@ -68,6 +69,7 @@ namespace AkuTakip.Business.Concrete
 
         [ValidationAspect(typeof(GarantiDetayValidator))]
         [TransactionScopeAspect]
+        [CacheRemoveAspect("IGarantiDetay.Get")]
         public IResult Add(GarantiDetay garantiDetay)
         {
             _garantiDetayDal.Add(garantiDetay);

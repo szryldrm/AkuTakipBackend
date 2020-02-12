@@ -44,6 +44,8 @@ namespace AkuTakip.Business.Concrete
         }
 
         [ValidationAspect(typeof(PlakaValidator))]
+        [CacheRemoveAspect("IPlakaService.Get")]
+        [CacheRemoveAspect("IGarantiDetay.Get")]
         public IResult Add(Plaka plaka)
         {
             _plakaDal.Add(plaka);
