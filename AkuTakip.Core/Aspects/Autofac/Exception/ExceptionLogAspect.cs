@@ -46,7 +46,8 @@ namespace AkuTakip.Core.Aspects.Autofac.Exception
             var logDetailWithException = new LogDetailWithException
             {
                 MethodName = invocation.Method.Name,
-                LogParameters = logParameters
+                LogParameters = logParameters,
+                DateTime = DateTime.Now
             };
 
             return logDetailWithException;

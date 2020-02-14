@@ -49,6 +49,7 @@ namespace AkuTakip.Business.Constants
         public static string NotEmptyMarka = "Marka Alanı Boş Olamaz.";
 
         public static string NoResultsFound = "Sonuç Bulunamadı..!";
+
         public static string AuthorizationDenied = "Yetkiniz Yok.";
     }
 }

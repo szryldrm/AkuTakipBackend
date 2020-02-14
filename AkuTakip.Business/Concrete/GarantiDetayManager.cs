@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using AkuTakip.Business.Abstract;
+using AkuTakip.Business.BusinessAspects.Autofac;
 using AkuTakip.Business.Constants;
 using AkuTakip.Business.ValidationRules.FluentValidation;
 using AkuTakip.Core.Aspects.Autofac.Caching;
@@ -38,6 +39,7 @@ namespace AkuTakip.Business.Concrete
         }
 
         [LogAspect(typeof(FileLogger))]
+        [SecuredOperation("GarantiDetay.List, Admin")]
         public IDataResult<List<GarantiDetay>> GetByPlaka(string plaka)
         {
             var tempPlaka = _plakaService.GetByPlakaNo(plaka);

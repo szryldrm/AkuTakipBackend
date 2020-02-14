@@ -60,7 +60,7 @@ namespace AkuTakip.Business.Concrete
                 return result;
             }
             _plakaDal.Add(plaka);
-            return new SuccessDataResult<Plaka>(Messages.PlakaAdded);
+            return new SuccessResult(Messages.PlakaAdded);
         }
 
         private IResult CheckIfPlakaNoExists(string plakaNo)
