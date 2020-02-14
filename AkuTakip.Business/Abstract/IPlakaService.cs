@@ -10,6 +10,7 @@ namespace AkuTakip.Business.Abstract
     public interface IPlakaService
     {
         IDataResult<Plaka> GetById(int plakaId);
+        IDataResult<Plaka> GetByPlakaNo(string plakaNo);
         IDataResult<List<Plaka>> GetList();
         IResult Add(Plaka plaka);
         IResult Delete(Plaka plaka);

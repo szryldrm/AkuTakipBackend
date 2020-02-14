@@ -21,12 +21,13 @@ namespace AkuTakip.Business.Concrete
     public class GarantiDetayManager : IGarantiDetayService
     {
         private IGarantiDetayDal _garantiDetayDal;
-        private IPlakaDal _plakaDal;
+        private IPlakaService _plakaService;
 
-        public GarantiDetayManager(IGarantiDetayDal garantiDetayDal, IPlakaDal plakaDal)
+
+        public GarantiDetayManager(IGarantiDetayDal garantiDetayDal, IPlakaService plakaService)
         {
             _garantiDetayDal = garantiDetayDal;
-            _plakaDal = plakaDal;
+            _plakaService = plakaService;
         }
 
         public IDataResult<GarantiDetay> GetById(int garantiDetayId)
@@ -37,11 +38,11 @@ namespace AkuTakip.Business.Concrete
         [LogAspect(typeof(DatabaseLogger))]
         public IDataResult<List<GarantiDetay>> GetByPlaka(string plaka)
         {
-            var tempPlaka = _plakaDal.Get(p=>p.PlakaNo == plaka);
+            var tempPlaka = _plakaService.GetByPlakaNo(plaka);
 
-            if (tempPlaka != null)
+            if (tempPlaka.Data != null)
             {
-                return new SuccessDataResult<List<GarantiDetay>>(_garantiDetayDal.GetList(d => d.PlakaID == tempPlaka.PlakaID).ToList());
+                return new SuccessDataResult<List<GarantiDetay>>(_garantiDetayDal.GetList(d => d.PlakaID == tempPlaka.Data.PlakaID).ToList());
             }
 
             return new ErrorDataResult<List<GarantiDetay>>(Messages.NoResultsFound);
@@ -49,14 +50,14 @@ namespace AkuTakip.Business.Concrete
 
         public IDataResult<List<GarantiDetay>> GetByPlakaWithDate(string plaka, string date1, string date2)
         {
-            var tempPlaka = _plakaDal.Get(p => p.PlakaNo == plaka);
+            var tempPlaka = _plakaService.GetByPlakaNo(plaka);
 
             DateTime start = Convert.ToDateTime(date1);
             DateTime end = Convert.ToDateTime(date2);
 
             if (tempPlaka != null)
             {
-                return new SuccessDataResult<List<GarantiDetay>>(_garantiDetayDal.GetList(d => d.PlakaID == tempPlaka.PlakaID && d.CreatedDate >= start && d.CreatedDate <= end).ToList());
+                return new SuccessDataResult<List<GarantiDetay>>(_garantiDetayDal.GetList(d => d.PlakaID == tempPlaka.Data.PlakaID && d.CreatedDate >= start && d.CreatedDate <= end).ToList());
             }
 
             return new ErrorDataResult<List<GarantiDetay>>(Messages.NoResultsFound);

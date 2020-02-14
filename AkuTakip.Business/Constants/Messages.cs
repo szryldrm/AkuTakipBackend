@@ -13,9 +13,10 @@ namespace AkuTakip.Business.Constants
         public static string PlakaDeleted = "Plaka Başarıyla Silindi.";
         public static string PlakaUpdated = "Plaka Başarıyla Güncellendi.";
 
+        public static string PlakaAlreadyExists = "Plaka Zaten Mevcut.";
+
         public static string MarkaAdded = "Marka Başarıyla Eklendi.";
         public static string MarkaDeleted = "Marka Başarıyla Silindi.";
-
         public static string MarkaUpdated = "Marka Başarıyla Güncellendi.";
 
         public static string AmperAdded = "Amper Başarıyla Eklendi.";

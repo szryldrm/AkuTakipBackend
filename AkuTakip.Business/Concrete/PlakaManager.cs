@@ -14,6 +14,7 @@ using AkuTakip.Core.Aspects.Autofac.Performance;
 using AkuTakip.Core.Aspects.Autofac.Validation;
 using AkuTakip.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using AkuTakip.Core.CrossCuttingConcerns.Validation;
+using AkuTakip.Core.Utilities.Business;
 using AkuTakip.Core.Utilities.Results;
 using AkuTakip.DataAccess.Abstract;
 using AkuTakip.Entities.Concrete;
@@ -34,6 +35,11 @@ namespace AkuTakip.Business.Concrete
             return new SuccessDataResult<Plaka>(_plakaDal.Get(p => p.PlakaID == plakaId));
         }
 
+        public IDataResult<Plaka> GetByPlakaNo(string plakaNo)
+        {
+            return new SuccessDataResult<Plaka>(_plakaDal.Get(p => p.PlakaNo == plakaNo));
+        }
+
         //[SecuredOperation("GarantiDetay.List, Admin", Priority = 1)]
         [CacheAspect(duration: 1, Priority = 2)]
         [PerformanceAspect(5)]
@@ -48,8 +54,23 @@ namespace AkuTakip.Business.Concrete
         [CacheRemoveAspect("IGarantiDetay.Get")]
         public IResult Add(Plaka plaka)
         {
+            IResult result = BusinessRules.Run(CheckIfPlakaNoExists(plaka.PlakaNo));
+            if (result != null)
+            {
+                return result;
+            }
             _plakaDal.Add(plaka);
             return new SuccessResult(Messages.PlakaAdded);
+        }
+
+        private IResult CheckIfPlakaNoExists(string plakaNo)
+        {
+            if (_plakaDal.Get(p => p.PlakaNo == plakaNo) != null)
+            {
+                return new ErrorResult(Messages.PlakaAlreadyExists);
+            }
+
+            return new SuccessResult();
         }
 
         public IResult Delete(Plaka plaka)
