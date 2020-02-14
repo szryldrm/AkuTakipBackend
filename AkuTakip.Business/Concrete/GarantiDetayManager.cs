@@ -14,6 +14,8 @@ using AkuTakip.Core.Utilities.Results;
 using AkuTakip.DataAccess.Abstract;
 using AkuTakip.Entities.Concrete;
 using AkuTakip.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
+using AkuTakip.Core.Utilities.Business;
+using AkuTakip.Entities.Dtos;
 
 
 namespace AkuTakip.Business.Concrete
@@ -35,7 +37,7 @@ namespace AkuTakip.Business.Concrete
             return new SuccessDataResult<GarantiDetay>(_garantiDetayDal.Get(p => p.GarantiDetayID == garantiDetayId));
         }
 
-        [LogAspect(typeof(DatabaseLogger))]
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<List<GarantiDetay>> GetByPlaka(string plaka)
         {
             var tempPlaka = _plakaService.GetByPlakaNo(plaka);
@@ -68,11 +70,37 @@ namespace AkuTakip.Business.Concrete
             return new SuccessDataResult<List<GarantiDetay>>(_garantiDetayDal.GetList().ToList());
         }
 
-        [ValidationAspect(typeof(GarantiDetayValidator))]
+        [ValidationAspect(typeof(GarantiDetayValidator), Priority = 1)]
         [TransactionScopeAspect]
         [CacheRemoveAspect("IGarantiDetay.Get")]
-        public IResult Add(GarantiDetay garantiDetay)
+        public IResult Add(GarantiDetayDto garantiDetayDto)
         {
+            Plaka tempPlaka = new Plaka
+            {
+                PlakaNo = garantiDetayDto.PlakaNo.ToUpper()
+            };
+
+            var resultPlaka = _plakaService.Add(tempPlaka);
+
+            if (!resultPlaka.Success)
+            {
+                tempPlaka = _plakaService.GetByPlakaNo(tempPlaka.PlakaNo).Data;
+            }
+
+            GarantiDetay garantiDetay = new GarantiDetay
+            {
+                SeriNo = garantiDetayDto.SeriNo,
+                Fiyat = garantiDetayDto.Fiyat,
+                AkuTipiID = garantiDetayDto.AkuTipiID,
+                AmperID = garantiDetayDto.AmperID,
+                MarkaID = garantiDetayDto.MarkaID,
+                PlakaID = tempPlaka.PlakaID,
+                Description = garantiDetayDto.Description,
+                IsActive = true,
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now
+            };
+
             _garantiDetayDal.Add(garantiDetay);
             return new SuccessResult(Messages.GarantiDetayAdded);
         }
@@ -88,5 +116,6 @@ namespace AkuTakip.Business.Concrete
             _garantiDetayDal.Update(garantiDetay);
             return new SuccessResult(Messages.GarantiDetayUpdated);
         }
+
     }
 }

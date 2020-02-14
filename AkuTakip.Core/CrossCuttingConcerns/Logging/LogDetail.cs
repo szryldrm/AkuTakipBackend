@@ -8,5 +8,6 @@ namespace AkuTakip.Core.CrossCuttingConcerns.Logging
     {
         public string MethodName { get; set; }
         public List<LogParameter> LogParameters { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }

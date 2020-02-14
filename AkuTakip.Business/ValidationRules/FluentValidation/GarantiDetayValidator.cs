@@ -4,11 +4,12 @@ using System.Data;
 using System.Text;
 using AkuTakip.Business.Constants;
 using AkuTakip.Entities.Concrete;
+using AkuTakip.Entities.Dtos;
 using FluentValidation;
 
 namespace AkuTakip.Business.ValidationRules.FluentValidation
 {
-    public class GarantiDetayValidator:AbstractValidator<GarantiDetay>
+    public class GarantiDetayValidator:AbstractValidator<GarantiDetayDto>
     {
         public GarantiDetayValidator()
         {

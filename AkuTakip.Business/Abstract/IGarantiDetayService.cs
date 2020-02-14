@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Text;
 using AkuTakip.Core.Utilities.Results;
+using AkuTakip.Entities.Dtos;
 
 namespace AkuTakip.Business.Abstract
 {
@@ -13,7 +14,7 @@ namespace AkuTakip.Business.Abstract
         IDataResult<List<GarantiDetay>> GetList();
         IDataResult<List<GarantiDetay>> GetByPlaka(string plaka);
         IDataResult<List<GarantiDetay>> GetByPlakaWithDate(string plaka, string date1, string date2);
-        IResult Add(GarantiDetay garantiDetay);
+        IResult Add(GarantiDetayDto garantiDetayDto);
         IResult Delete(GarantiDetay garantiDetay);
         IResult Update(GarantiDetay garantiDetay);
     }

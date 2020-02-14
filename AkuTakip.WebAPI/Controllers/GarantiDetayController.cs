@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AkuTakip.Business.Abstract;
 using AkuTakip.Entities.Concrete;
+using AkuTakip.Entities.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -70,9 +71,9 @@ namespace AkuTakip.WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(GarantiDetay garantiDetay)
+        public IActionResult Add(GarantiDetayDto garantiDetayDto)
         {
-            var result = _garantiDetayService.Add(garantiDetay);
+            var result = _garantiDetayService.Add(garantiDetayDto);
             if (result.Success)
             {
                 return Ok(result.Message);
