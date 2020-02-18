@@ -1,0 +1,2 @@
+# AkuTakipBackend
+A .Net Core Project with Multitier Layered, Dependency Injection and Autofac Implementation, Error, Success Result Management, Repository Pattern, Authorization, Authentication and JWT, Create Extension, AOP ve Cross Cutting Background, Validation Rules, Fluent Validation Implementation, AOP - Validation - Transaction - Caching - Performance - Logging - ExceptionLogAspect, Service Collection Extension, ExceptionHandling
