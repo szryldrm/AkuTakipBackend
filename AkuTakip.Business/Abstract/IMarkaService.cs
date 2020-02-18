@@ -10,6 +10,7 @@ namespace AkuTakip.Business.Abstract
     public interface IMarkaService
     {
         IDataResult<Marka> GetById(int markaId);
+        IDataResult<Marka> GetByName(string marka);
         IDataResult<List<Marka>> GetList();
         IResult Add(Marka marka);
         IResult Delete(Marka marka);

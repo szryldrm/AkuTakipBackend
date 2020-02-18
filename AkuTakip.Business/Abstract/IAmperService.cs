@@ -10,6 +10,7 @@ namespace AkuTakip.Business.Abstract
     public interface IAmperService
     {
         IDataResult<Amper> GetById(int amperId);
+        IDataResult<Amper> GetByName(string amper);
         IDataResult<List<Amper>> GetList();
         IResult Add(Amper amper);
         IResult Delete(Amper amper);

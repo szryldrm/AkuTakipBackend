@@ -24,14 +24,22 @@ namespace AkuTakip.Business.Concrete
     public class GarantiDetayManager : IGarantiDetayService
     {
         private IGarantiDetayDal _garantiDetayDal;
+        private IGarantiDetayToAkuOzellikService _garantiDetayToAkuOzellikService;
         private IPlakaService _plakaService;
+        private IMarkaService _markaService;
+        private IAmperService _amperService;
+        private IAkuTipiService _akuTipiService;
 
-
-        public GarantiDetayManager(IGarantiDetayDal garantiDetayDal, IPlakaService plakaService)
+        public GarantiDetayManager(IGarantiDetayDal garantiDetayDal, IGarantiDetayToAkuOzellikService garantiDetayToAkuOzellikService, IPlakaService plakaService, IMarkaService markaService, IAmperService amperService, IAkuTipiService akuTipiService)
         {
             _garantiDetayDal = garantiDetayDal;
+            _garantiDetayToAkuOzellikService = garantiDetayToAkuOzellikService;
             _plakaService = plakaService;
+            _markaService = markaService;
+            _amperService = amperService;
+            _akuTipiService = akuTipiService;
         }
+
 
         public IDataResult<GarantiDetay> GetById(int garantiDetayId)
         {
@@ -39,7 +47,7 @@ namespace AkuTakip.Business.Concrete
         }
 
         [LogAspect(typeof(FileLogger))]
-        [SecuredOperation("GarantiDetay.List, Admin")]
+        //[SecuredOperation("GarantiDetay.List, Admin")]
         public IDataResult<List<GarantiDetay>> GetByPlaka(string plaka)
         {
             var tempPlaka = _plakaService.GetByPlakaNo(plaka);
@@ -75,6 +83,7 @@ namespace AkuTakip.Business.Concrete
         [ValidationAspect(typeof(GarantiDetayValidator), Priority = 1)]
         [TransactionScopeAspect]
         [CacheRemoveAspect("IGarantiDetay.Get")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Add(GarantiDetayDto garantiDetayDto)
         {
             Plaka tempPlaka = new Plaka
@@ -93,9 +102,9 @@ namespace AkuTakip.Business.Concrete
             {
                 SeriNo = garantiDetayDto.SeriNo,
                 Fiyat = garantiDetayDto.Fiyat,
-                AkuTipiID = garantiDetayDto.AkuTipiID,
-                AmperID = garantiDetayDto.AmperID,
-                MarkaID = garantiDetayDto.MarkaID,
+                AkuTipiID = _akuTipiService.GetByName(garantiDetayDto.AkuTipi).Data.AkuTipiID,
+                AmperID = _amperService.GetByName(garantiDetayDto.Amper).Data.AmperID,
+                MarkaID = _markaService.GetByName(garantiDetayDto.Marka).Data.MarkaID,
                 PlakaID = tempPlaka.PlakaID,
                 Description = garantiDetayDto.Description,
                 IsActive = true,
@@ -104,6 +113,22 @@ namespace AkuTakip.Business.Concrete
             };
 
             _garantiDetayDal.Add(garantiDetay);
+
+            if (garantiDetayDto.AkuOzellik != null)
+            {
+                foreach (var ozellik in garantiDetayDto.AkuOzellik)
+                {
+                    GarantiDetayToAkuOzellik tempGarantiDetayToAkuOzellik = new GarantiDetayToAkuOzellik
+                    {
+                        GarantiDetayID = garantiDetay.GarantiDetayID,
+                        AkuOzellikID = ozellik.AkuOzellikID,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    };
+                    _garantiDetayToAkuOzellikService.Add(tempGarantiDetayToAkuOzellik);
+                }
+            }
+
             return new SuccessResult(Messages.GarantiDetayAdded);
         }
 

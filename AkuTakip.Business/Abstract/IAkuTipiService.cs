@@ -10,6 +10,7 @@ namespace AkuTakip.Business.Abstract
     public interface IAkuTipiService
     {
         IDataResult<AkuTipi> GetById(int akuTipiId);
+        IDataResult<AkuTipi> GetByName(string akuTipi);
         IDataResult<List<AkuTipi>> GetList();
         IResult Add(AkuTipi akuTipi);
         IResult Delete(AkuTipi akuTipi);

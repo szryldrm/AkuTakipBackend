@@ -26,6 +26,12 @@ namespace AkuTakip.Business.Concrete
             return new SuccessDataResult<Marka>(_markaDal.Get(p => p.MarkaID == markaId));
         }
 
+        public IDataResult<Marka> GetByName(string marka)
+        {
+            return new SuccessDataResult<Marka>(_markaDal.Get(p => p.MarkaName == marka));
+
+        }
+
         public IDataResult<List<Marka>> GetList()
         {
             return new SuccessDataResult<List<Marka>>(_markaDal.GetList().ToList());

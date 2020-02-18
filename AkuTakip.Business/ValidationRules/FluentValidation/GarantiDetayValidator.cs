@@ -16,9 +16,9 @@ namespace AkuTakip.Business.ValidationRules.FluentValidation
             RuleFor(gd => gd.SeriNo).NotEmpty();
             RuleFor(gd => gd.SeriNo).MinimumLength(3);
             RuleFor(gd => gd.SeriNo).Must(NonStartWithZero).WithMessage(Messages.NonStartWithZero);
-            RuleFor(gd => gd.AkuTipiID).NotEmpty().WithMessage(Messages.NotEmptyAkuTipi);
-            RuleFor(gd => gd.AmperID).NotEmpty().WithMessage(Messages.NotEmptyAmper);
-            RuleFor(gd => gd.MarkaID).NotEmpty().WithMessage(Messages.NotEmptyMarka);
+            RuleFor(gd => gd.AkuTipi).NotEmpty().WithMessage(Messages.NotEmptyAkuTipi);
+            RuleFor(gd => gd.Amper).NotEmpty().WithMessage(Messages.NotEmptyAmper);
+            RuleFor(gd => gd.Marka).NotEmpty().WithMessage(Messages.NotEmptyMarka);
 
         }
 

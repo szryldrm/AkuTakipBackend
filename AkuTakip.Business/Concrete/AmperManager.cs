@@ -26,6 +26,11 @@ namespace AkuTakip.Business.Concrete
             return new SuccessDataResult<Amper>(_amperDal.Get(p => p.AmperID == amperId));
         }
 
+        public IDataResult<Amper> GetByName(string amper)
+        {
+            return new SuccessDataResult<Amper>(_amperDal.Get(p => p.AmperNo == amper));
+        }
+
         public IDataResult<List<Amper>> GetList()
         {
             return new SuccessDataResult<List<Amper>>(_amperDal.GetList().ToList());

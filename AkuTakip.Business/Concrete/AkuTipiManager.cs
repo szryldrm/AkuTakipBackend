@@ -26,6 +26,11 @@ namespace AkuTakip.Business.Concrete
             return new SuccessDataResult<AkuTipi>(_akuTipiDal.Get(p => p.AkuTipiID == akuTipiId));
         }
 
+        public IDataResult<AkuTipi> GetByName(string akuTipi)
+        {
+            return new SuccessDataResult<AkuTipi>(_akuTipiDal.Get(p => p.AkuTipiName == akuTipi));
+        }
+
         public IDataResult<List<AkuTipi>> GetList()
         {
             return new SuccessDataResult<List<AkuTipi>>(_akuTipiDal.GetList().ToList());
